@@ -1,0 +1,23 @@
+{
+  "name": "e-books-backend",
+  "version": "1.0.0",
+  "description": "backend-pf",
+  "main": "index.js",
+  "scripts": {
+  "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianneMem/Repo-PF.git"
+  },
+  "author": "grupo11",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DianneMem/Repo-PF/issues"
+  },
+  "homepage": "https://github.com/DianneMem/Repo-PF#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
