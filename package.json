@@ -4,7 +4,7 @@
   "description": "backend-pf",
   "main": "index.js",
   "scripts": {
-  "dev": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/DianneMem/Repo-PF#readme",
   "dependencies": {
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "mongoose": "^6.8.0",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   }
 }
