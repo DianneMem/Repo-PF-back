@@ -42,6 +42,7 @@ const User = new Schema({
     required: true
   }
 })
+//revisar validadciones a nivel backend y db
 
 
 module.exports = model("User",User)
