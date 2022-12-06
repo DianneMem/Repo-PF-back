@@ -30,7 +30,7 @@ const Product = new Schema({
     required: true
   },
   price: {
-    type: Decimal128,
+    type: mongoose.Decimal128,
     required: true
   },
   year: {
@@ -43,6 +43,10 @@ const Product = new Schema({
   },
   available:{
     type: Boolean,
+    default: true
+  },
+  typebook:{
+    type: String,
     default: true
   }
 })
