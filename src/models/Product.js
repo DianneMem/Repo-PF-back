@@ -33,6 +33,10 @@ const Product = new Schema({
     type: Array,
     required: true
   },
+  gender: {
+    type: Array,
+    required: true
+  },
   image: {
     type: String,
     required: true
