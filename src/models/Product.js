@@ -1,7 +1,15 @@
 const mongoose = require("mongoose")
 const { Schema,model } = mongoose;
+const ObjectId = mongoose.Types.ObjectId;
 
 const Product = new Schema({
+  _id:{
+    type: String,
+    default: function(){
+      return new ObjectId().toString()
+    }
+
+  },
   title: {
     type: String,
     required: true,
@@ -30,7 +38,7 @@ const Product = new Schema({
     required: true
   },
   price: {
-    type: mongoose.Decimal128,
+    type: Number,
     required: true
   },
   year: {
