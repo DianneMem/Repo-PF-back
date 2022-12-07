@@ -19,7 +19,7 @@ const Product = new Schema({
     required: true
   },
   categorie: {
-    type: Array,
+    type: String,
     required: true
   },
   editorial: {
@@ -30,7 +30,7 @@ const Product = new Schema({
     type: String,
   },
   language: {
-    type: Array,
+    type: String,
     required: true
   },
   gender: {
