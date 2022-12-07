@@ -59,6 +59,7 @@ const Product = new Schema({
   },
   typebook:{
     type: String,
+    required: true,
   }
 })
 
