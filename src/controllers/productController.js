@@ -13,10 +13,21 @@ exports.newProduct = async (req, res) => {
 }
 
 exports.getProduct = async(req, res) => {
-  try {
-    const result = await Product.find({})
+    const { title } = req.query;
+    try {
     res.header("Access-Control-Allow-Origin", "*")
-    res.status(200).send(result)
+    const product = await Product.find({})
+    console.log(product)
+    if(title){
+      const result = product.filter((pro) => pro.title.toLowerCase().includes(title.toLowerCase()))
+      if(result.length){
+        return res.status(200).send(result)
+      } else {
+        res.status(404).send("Book Not Found")
+      }
+    } else {
+      res.status(200).send(product)
+    }
   } catch (error) {
     res.status(404).send(error.message)
   }
