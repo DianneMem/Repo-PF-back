@@ -19,7 +19,7 @@ const Product = new Schema({
     required: true
   },
   categorie: {
-    type: String,
+    type: Array,
     required: true
   },
   editorial: {
@@ -30,7 +30,7 @@ const Product = new Schema({
     type: String,
   },
   language: {
-    type: String,
+    type: Array,
     required: true
   },
   image: {
