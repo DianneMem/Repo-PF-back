@@ -15,6 +15,7 @@ exports.newProduct = async (req, res) => {
 exports.getProduct = async(req, res) => {
   try {
     const result = await Product.find({})
+    res.header("Access-Control-Allow-Origin", "*")
     res.status(200).send(result)
   } catch (error) {
     res.status(404).send(error.message)
