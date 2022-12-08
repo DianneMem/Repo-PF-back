@@ -1,14 +1,13 @@
-const mongoose = require("mongoose")
-const { Schema,model } = mongoose;
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 const ObjectId = mongoose.Types.ObjectId;
 
 const Product = new Schema({
-  _id:{
+  _id: {
     type: String,
-    default: function(){
-      return new ObjectId().toString()
-    }
-
+    default: function () {
+      return new ObjectId().toString();
+    },
   },
   title: {
     type: String,
@@ -16,51 +15,51 @@ const Product = new Schema({
   },
   author: {
     type: String,
-    required: true
+    required: true,
   },
   categorie: {
     type: String,
-    required: true
+    required: true,
   },
   editorial: {
     type: String,
-    required: true
+    required: true,
   },
   saga: {
     type: String,
   },
   language: {
     type: String,
-    required: true
+    required: true,
   },
   gender: {
     type: Array,
-    required: true
+    required: true,
   },
   image: {
     type: String,
-    required: true
+    required: true,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   year: {
     type: Number,
-    required: true
+    required: true,
   },
   state: {
     type: String,
     required: true,
   },
-  available:{
+  available: {
     type: Boolean,
-    default: true
+    default: true,
   },
-  typebook:{
+  typebook: {
     type: String,
     required: true,
-  }
-})
+  },
+});
 
-module.exports = model("Product",Product)
+module.exports = model("Product", Product);

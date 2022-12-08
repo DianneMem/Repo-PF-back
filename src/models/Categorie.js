@@ -1,19 +1,19 @@
-const mongoose = require("mongoose")
-const { Schema,model } = mongoose;
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 const ObjectId = mongoose.Types.ObjectId;
 
 const Categorie = new Schema({
-  _id:{
+  _id: {
     type: String,
-    default: function(){
-      return new ObjectId().toString()
-    }
+    default: function () {
+      return new ObjectId().toString();
+    },
   },
- name: {
-  type: String,
-  unique: true,
-  trim: true
- } 
-})
+  name: {
+    type: String,
+    unique: true,
+    trim: true,
+  },
+});
 
-module.exports = model("Categorie",Categorie)
+module.exports = model("Categorie", Categorie);

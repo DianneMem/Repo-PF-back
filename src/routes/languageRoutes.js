@@ -6,5 +6,4 @@ const router = Router();
 router.post("/", languageController.newLanguage);
 router.get("/", languageController.getLanguage);
 
-
 module.exports = router;
