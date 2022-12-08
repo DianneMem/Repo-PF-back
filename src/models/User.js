@@ -1,53 +1,51 @@
-const mongoose = require("mongoose")
-const { Schema,model } = mongoose;
-
+const mongoose = require("mongoose");
+const { isEmail } = require("validator");
+const { Schema, model } = mongoose;
 
 const User = new Schema({
   username: {
     type: String,
     required: true,
     unique: true,
-    trim: true
+    trim: true,
   },
   password: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   firstname: {
     type: String,
-    required: true
+    required: true,
   },
   lastname: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
+    validate: [isEmail, "The content must be an email"],
     unique: true,
-    trim: true
+    trim: true,
   },
   adress: {
     type: String,
-    required: true
+    required: true,
   },
   phone: {
     type: String,
-    required: true
+    required: true,
   },
   available: {
     type: Boolean,
-    default: true
+    default: true,
   },
   role: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 //revisar validadciones a nivel backend y db
 
-
-module.exports = model("User",User)
-
-
+module.exports = model("User", User);
