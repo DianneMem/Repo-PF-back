@@ -6,6 +6,7 @@ const productRouter = require("./routes/productRoutes");
 const categorieRouter = require("./routes/categorieRoutes")
 const genderRouter = require("./routes/genderRoutes")
 const languageRouter = require("./routes/languageRoutes")
+const filtersRouter = require("./routes/filtersRoutes")
 
 
 require("./db");
@@ -26,6 +27,7 @@ server.use("/products", productRouter);
 server.use("/categories", categorieRouter);
 server.use("/genders", genderRouter);
 server.use("/languages", languageRouter);
+server.use("/filters", filtersRouter)
 
 
 
