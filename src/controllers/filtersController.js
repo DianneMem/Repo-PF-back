@@ -13,3 +13,29 @@ exports.filterAuthor = async (req, res) => {
    return res.status(400).send(error.message);
   }
 };
+
+exports.filterEditorial = async (req, res) => {
+  try {
+    const { editorial } = req.params
+    const editorials = await Product.find({})
+    const filterEditorial = editorials.filter((elm) => {
+      return elm.editorial.toLocaleLowerCase().includes(editorial.toLocaleLowerCase())
+    })
+   return res.status(202).send(filterEditorial);
+  } catch (error) {
+   return res.status(400).send(error.message);
+  }
+};
+
+exports.filterSaga = async (req, res) => {
+  try {
+    const { saga } = req.params
+    const sagas = await Product.find({})
+    const filterSaga = sagas.filter((elm) => {
+      return elm.saga.toLocaleLowerCase().includes(saga.toLocaleLowerCase())
+    })
+   return res.status(202).send(filterSaga);
+  } catch (error) {
+   return res.status(400).send(error.message);
+  }
+};
