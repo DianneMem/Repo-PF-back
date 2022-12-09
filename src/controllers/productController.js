@@ -35,7 +35,7 @@ exports.getProduct = async (req, res) => {
 
 exports.getDetail = async (req, res) => {
   const product = await Product.findById(req.params.id);
-
+  res.header("Access-Control-Allow-Origin", "*");
   try {
     if (!product) {
       throw new Error("Product not found");
