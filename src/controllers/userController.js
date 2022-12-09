@@ -56,28 +56,27 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// exports.deleteLogicProduct = async (req, res) => {
-//   try {
-//     const product = await Product.findById({ _id: req.params.id });
-//     product.available
-//       ? (product.available = false)
-//       : (product.available = true);
+exports.deleteLogicUser = async (req, res) => {
+  try {
+    const user = await User.findById({ _id: req.params.id });
+    user.available ? (user.available = false) : (user.available = true);
 
-//     await Product.findByIdAndUpdate({ _id: req.params.id }, product, {
-//       new: true,
-//     });
+    await User.findByIdAndUpdate({ _id: req.params.id }, user, {
+      new: true,
+    });
 
-//     res.status(200).json("Delete logic successfull");
-//   } catch (error) {
-//     res.status(400).send(error.message);
-//   }
-// };
-// exports.deleteProduct = async (req, res) => {
-//   try {
-//     const product = await Product.findOneAndRemove({ _id: req.params.id });
+    res.status(200).json("Delete logic successful");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 
-//     res.status(200).json("Removed product");
-//   } catch (error) {
-//     res.status(400).send(error.message);
-//   }
-// };
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findOneAndRemove({ _id: req.params.id });
+
+    res.status(200).json("Delete user successful");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
