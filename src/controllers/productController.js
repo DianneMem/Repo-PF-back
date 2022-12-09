@@ -68,16 +68,16 @@ exports.deleteLogicProduct = async (req, res) => {
       new: true,
     });
 
-    res.status(200).json("Delete logic successfull");
+    res.status(200).json("Delete logic successful");
   } catch (error) {
     res.status(400).send(error.message);
   }
 };
 exports.deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findOneAndRemove({ _id: req.params.id });
+    await Product.findOneAndRemove({ _id: req.params.id });
 
-    res.status(200).json("Removed product");
+    res.status(200).json("Delete product successful");
   } catch (error) {
     res.status(400).send(error.message);
   }
