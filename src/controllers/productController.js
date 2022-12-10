@@ -12,15 +12,21 @@ exports.newProduct = async (req, res) => {
 };
 
 exports.getProduct = async (req, res) => {
-  const { title } = req.query;
+  const { search } = req.query;
   try {
     const product = await Product.find({});
-    if (title) {
-      const productFilter = product.filter((pro) =>
-        pro.title.toLowerCase().includes(title.toLowerCase())
-      );
-      if (productFilter.length) {
-        return res.status(200).send(productFilter);
+    if (search) {
+      const productTitle = product.filter((pro) =>
+        pro.title.toLowerCase().includes(search.toLowerCase()))
+        const productAuthor = product.filter((pro) =>
+        pro.author.toLowerCase().includes(search.toLowerCase()))
+        const productEditorial = product.filter((pro) =>
+        pro.editorial.toLowerCase().includes(search.toLowerCase()))
+        const productSaga = product.filter((pro) =>
+        pro.saga.toLowerCase().includes(search.toLowerCase()))
+        let all=productTitle.concat(productAuthor).concat(productEditorial).concat(productSaga)
+      if (all.length) {
+        return res.status(200).send(all);
       } else {
         res.status(404).send("Book Not Found");
       }
