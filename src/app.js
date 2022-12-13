@@ -7,12 +7,15 @@ const categorieRouter = require("./routes/categorieRoutes")
 const genderRouter = require("./routes/genderRoutes")
 const languageRouter = require("./routes/languageRoutes")
 const filtersRouter = require("./routes/filtersRoutes")
+const paymentRouter= require("./routes/paymentRoutes")
+const stripe = require("stripe")
+const cors =require("cors")
 
 
 require("./db");
 
 const server = express();
-
+server.use(cors({ origin: "http://localhost:3000" }));
 server.use(morgan("dev"));
 server.use(bodyParser.json());
 server.use(function (req, res, next) {
@@ -28,7 +31,7 @@ server.use("/categories", categorieRouter);
 server.use("/genders", genderRouter);
 server.use("/languages", languageRouter);
 server.use("/filters", filtersRouter)
-
+server.use("/api/checkout",paymentRouter)
 
 
 
