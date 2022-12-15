@@ -13,10 +13,10 @@ passport.deserializeUser(async (id, done) => {
 });
 
 
-passport.use("google",new GoogleStrategy(
+passport.use("sign-up-google",new GoogleStrategy(
   {
     clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientSecret: "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",
     callbackURL: "http://localhost:3001/google/signup",
   },
   async (accessToken, refreshToken, profile, done) => {
@@ -38,21 +38,21 @@ passport.use("google",new GoogleStrategy(
 )
 );
 
-passport.use("google",new GoogleStrategy(
-  {
-    clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
-    clientSecret: "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",
-    callbackURL: "http://localhost:3001/google/signup",
-  },
-  async (accessToken, refreshToken, profile, done) => {
-    const user = await User.findById(profile.id);// si existe en la base de datos
-                                                 //  puede iniciar sesion
-    if (user) {
-      done(null, user)
-    } else {
-      done(null, false)
-    }
+// passport.use("sign-up-google",new GoogleStrategy(
+//   {
+//     clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
+//     clientSecret: "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",
+//     callbackURL: "http://localhost:3001/google/signup",
+//   },
+//   async (accessToken, refreshToken, profile, done) => {
+//     const user = await User.findById(profile.id);// si existe en la base de datos
+//                                                  //  puede iniciar sesion
+//     if (user) {
+//       done(null, user)
+//     } else {
+//       done(null, false)
+//     }
     
-  }
-)
-);
+//   }
+// )
+// );
