@@ -14,18 +14,18 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
       const token = jwt.sign({id: req.user._id}, 'top_secret', {
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
-      // res.cookie('token', token)        
-      res.redirect('http://localhost:3000/')
-
+      // res.cookie('token', token)}
+      // res.redirect('http://localhost:3000/')
+      res.send(req.user.id)
     } else {
       res.redirect('http://localhost:3000/login')
     }
   }
 );
 
-loginGoogleRouter.get("/google", (req, res) => {
+loginGoogleRouter.get("/prueba", (req, res) => {
   // console.log(req.user)
-  res.send(req.user)
+  res.send(req.user.id)
 })
 
 loginGoogleRouter.get("/profile", (req,res,next) => {
