@@ -1,51 +1,43 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 const { Schema, model } = mongoose;
+const ObjectId = mongoose.Types.ObjectId;
+const bcrypt = require("bcrypt-nodejs")
 
 const User = new Schema({
-  username: {
+  _id: {
     type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  firstname: {
-    type: String,
-    required: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
+    default: function () {
+      return new ObjectId().toString();
+    },
   },
   email: {
     type: String,
-    required: true,
-    validate: [isEmail, "The content must be an email"],
-    unique: true,
-    trim: true,
+    unique: true
   },
-  adress: {
+  password: {
     type: String,
-    required: true,
   },
-  phone: {
+  username: {
     type: String,
-    required: true,
   },
   available: {
     type: Boolean,
     default: true,
   },
-  role: {
-    type: String,
-    required: true,
-  },
+  storage: {
+    type: Array
+  }
 });
 //revisar validadciones a nivel backend y db
+
+User.methods.encryptPassword = (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10) )
+}
+
+User.methods.comparePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+}
+
 
 module.exports = model("User", User);
