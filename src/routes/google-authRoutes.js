@@ -8,13 +8,13 @@ const User = require("../models/User");
 
 //ruta para Registrarse
 
-loginGoogleRouter.get("/signup",passport.authenticate("google", {scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], session: false }),
+loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], session: false }),
   function (req, res) {
     if (req.user) {
       const token = jwt.sign({id: req.user._id}, 'top_secret', {
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
-      res.cookie('token', token)        
+      // res.cookie('token', token)        
       res.redirect('http://localhost:3000/')
 
     } else {

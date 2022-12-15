@@ -15,7 +15,6 @@ const loginGoogleRouter = require("./routes/google-authRoutes")
 const loginLocalRouter = require("./routes/local-authRoutes")
 const paymentRouter= require("./routes/paymentRoutes")
 const stripe = require("stripe")
-const cors =require("cors")
 
 
 require("./db");
