@@ -26,8 +26,11 @@ const User = new Schema({
     default: true,
   },
   storage: {
-    type: Array
-  }
+    type: Array,
+    default:[]
+  },
+  stripeId:
+  {type:String}
 });
 //revisar validadciones a nivel backend y db
 

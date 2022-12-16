@@ -9,5 +9,6 @@ router.get("/:id", userController.getDetail);
 router.put("/deletelogic/:id", userController.deleteLogicUser);
 router.put("/:id", userController.updateUser);
 router.delete("/:id", userController.deleteUser);
+router.post("/:id/storage", userController.storageUser);
 
 module.exports = router;
