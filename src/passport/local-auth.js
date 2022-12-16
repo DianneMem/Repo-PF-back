@@ -2,14 +2,6 @@ const passport = require("passport")
 const User = require("../models/User")
 const LocalStrategy = require("passport-local").Strategy;
 
-passport.serializeUser((user, done)=> {
-  done(null, user.username);
-});
-
-passport.deserializeUser(async (id, done)=> {
-  const user = await User.findById(id);
-  done(null, user)
-});
 
 passport.use('local-signup', new LocalStrategy({
   usernameField: 'email',
@@ -27,13 +19,30 @@ passport.use('local-signup', new LocalStrategy({
     await newUser.save();
     done(null,newUser);
   }
+  
+}))
+
+passport.use("local-signin", new LocalStrategy(async (username, password, done) =>{
+  const user = await User.findOne({username: username, password: password});
+  console.log(user)
+  // if(username === "usuario" && password === "123456")
+  // return done(null, {id: 1, name: "totoelcrack"});
+  if(user){
+    return done(null, { id: user._id, username: user.username});
+  }else {
+    done(null,false)
+  }
 
 }))
 
-// passport.use("local-signin", new LocalStrategy(async (username, password, done) =>{
-//   const user = await User.find({username: username});
-//   console.log(user)
-//   // if(username === "usuario" && password === "123456")
-//   // return done(null, {id: 1, name: "totoelcrack"});
-//   return done(null, {username: user.username n });
-// }))
+
+
+passport.serializeUser(function(user, done){
+  done(null, user.id);
+});
+
+
+passport.deserializeUser(async function (id, done){
+  const user = await User.findById(id);
+  done(null, user)
+});
