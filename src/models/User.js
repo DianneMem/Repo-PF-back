@@ -30,7 +30,11 @@ const User = new Schema({
     default:[]
   },
   stripeId:
-  {type:String}
+  {type:String},
+  role:{
+    type:String,
+    default:"user"
+  }
 });
 //revisar validadciones a nivel backend y db
 
