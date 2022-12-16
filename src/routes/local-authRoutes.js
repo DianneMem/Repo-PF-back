@@ -5,15 +5,15 @@ const loginLocalRouter = Router()
 const User = require("../models/User");
 
 
-loginLocalRouter.post("/signup", passport.authenticate('local-signup', {
-  
-  successRedirect: '/products',
-  // successRedirect: '/user',
+loginLocalRouter.post("/signup", passport.authenticate('local-signup'),(req,res)=>{
+  res.send(req.body)
+  // res.redirect('http://localhost:3000/')
+})
 
-  failureRedirect: '/users',
-  passReqToCallback: true
+// loginLocalRouter.post("/signin", passport.authenticate("local-signin"), (req, res) => {
 
-}))
+//   res.send("hola");
+// })
 
 // loginRouter.get("/singin", (req,res,next) => {
 

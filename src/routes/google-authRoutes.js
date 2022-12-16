@@ -16,8 +16,8 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
         expiresIn: 60 * 60 * 24 
       })
       res.cookie('token', token)
-      res.send(req.user)
-      // res.redirect('http://localhost:3000/')
+      // res.send(req.user)
+      res.redirect('http://localhost:3000/')
     } else {
       res.redirect('http://localhost:3000/login')
     }
@@ -36,8 +36,8 @@ loginGoogleRouter.get(
         expiresIn: 60 * 60 * 24 
       })
       res.cookie('token', token)
-      res.send(req.user)
-      // res.redirect('http://localhost:3000/')
+      // res.send(req.user)
+      res.redirect('http://localhost:3000/')
     } else {
       res.redirect('http://localhost:3000/register')
     } 
