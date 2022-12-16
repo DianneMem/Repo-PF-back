@@ -10,6 +10,19 @@ exports.newUser = async (req, res) => {
   }
 };
 
+exports.storageUser = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+    let storageUser= await user.storage.push(req.body)
+    await user.save();
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+
 exports.getUser = async (req, res) => {
   const { name } = req.query;
   try {
