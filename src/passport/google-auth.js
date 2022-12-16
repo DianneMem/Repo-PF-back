@@ -21,10 +21,10 @@ passport.use("sign-up-google",new GoogleStrategy(
   },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id); // si el usuario no existe 
-    console.log(profile)
+    console.log("prueba1",profile)
                                                   //lo creamos
     if (user) {
-      done(null, false);
+      done("ya estas registrado");
     } else {
       let newUser = new User();
           newUser._id = profile.id
@@ -38,21 +38,21 @@ passport.use("sign-up-google",new GoogleStrategy(
 )
 );
 
-// passport.use("sign-up-google",new GoogleStrategy(
-//   {
-//     clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
-//     clientSecret: "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",
-//     callbackURL: "http://localhost:3001/google/signup",
-//   },
-//   async (accessToken, refreshToken, profile, done) => {
-//     const user = await User.findById(profile.id);// si existe en la base de datos
-//                                                  //  puede iniciar sesion
-//     if (user) {
-//       done(null, user)
-//     } else {
-//       done(null, false)
-//     }
+passport.use("sign-in-google",new GoogleStrategy(
+  {
+    clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
+    clientSecret: "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",
+    callbackURL: "http://localhost:3001/google/signin",
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    const user = await User.findById(profile.id);// si existe en la base de datos
+                                                 //  puede iniciar sesion
+    if (user) {
+      done(null, user)
+    } else {
+      done("usuario no registrado")
+    }
     
-//   }
-// )
-// );
+  }
+)
+);
