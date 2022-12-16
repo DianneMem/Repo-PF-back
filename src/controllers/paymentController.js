@@ -1,9 +1,12 @@
 const Stripe = require("stripe");
+const User = require("../models/User");
 const { param } = require("../routes/userRoutes");
-const stripe = new Stripe("sk_test_51MEajtLJTt31yzzaW3muurRnhU5ue2XgeiO86okSHdofdTkCvCme0d0dcfSm47w26VZrnXxNHBe6awOg1CGqworX00CZhOt5FX");
+const stripe = new Stripe(
+  "sk_test_51MEajtLJTt31yzzaW3muurRnhU5ue2XgeiO86okSHdofdTkCvCme0d0dcfSm47w26VZrnXxNHBe6awOg1CGqworX00CZhOt5FX"
+);
 
-exports.payment= async (req, res) => {
-  const { id, amount,created,customer } = req.body;
+exports.payment = async (req, res) => {
+  const { id, amount, created, customer } = req.body;
 
   try {
     const payment = await stripe.paymentIntents.create({
@@ -11,9 +14,9 @@ exports.payment= async (req, res) => {
       currency: "USD",
       payment_method: id,
       confirm: true,
-      description:created,
-      customer
-    }); 
+      description: created,
+      customer,
+    });
 
     console.log(payment);
 
@@ -22,29 +25,60 @@ exports.payment= async (req, res) => {
     console.log(error);
     return res.json({ message: error.raw.message });
   }
-}
+};
 
-exports.createCustomer=async(req,res)=>{
-  const {name,email}=req.body
- try {
-  var param ={};
-  param.email =email
-  param.name=name
-  param.description ="New stripe User"
+exports.createCustomer = async (req, res) => {
+  const { username, email } = req.body;
+  try {
+    var param = {};
+    param.email = email;
+    param.name = username;
+    param.description = "New stripe User";
 
- let newCustomer= await stripe.customers.create(param, function (err,customer) {
+    let newCustomer = await stripe.customers.create(
+      param,
+      function (err, customer) {
+        if (err) {
+          console.log("err: " + err);
+        }
+        if (customer) {
+          console.log("success: " + customer);
+        } else {
+          console.log("Something wrong");
+        }
+      }
+    );
+    res.status(200).send(newCustomer);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+exports.findUserStripe = async (req, res) => {
+  const { username } = req.query;
+  const user = await User.find({});
+
+  try {
+    stripe.customers.list(async function (err,customers) {
       if(err)
       {
-          console.log("err: "+err);
-      }if(customer)
+        res.status(400).send(err)
+      }if(customers)
       {
-          console.log("success: "+customer)
+        let result= await customers.data.map(e=>  e={username:e.name})
+          const userFilter = user.find((user) =>
+          user.username ===username
+        );
+        console.log(userFilter);
+        
+        let finalResult= result.find(e=>e.username===userFilter.username)
+        res.status(200).send(userFilter)
       }else{
-          console.log("Something wrong")
+        res.status(400).send("error")
       }
   })
-res.status(200).send(newCustomer);
- } catch (error) {
-  res.status(400).json(error);
- }
-}
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
