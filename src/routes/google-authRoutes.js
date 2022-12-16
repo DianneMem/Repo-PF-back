@@ -3,6 +3,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const loginGoogleRouter = Router()
 const User = require("../models/User");
+const { profile } = require("console");
 
 //rutas para Google
 
@@ -12,39 +13,33 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
   function (req, res) {
     if (req.user) {
       const token = jwt.sign({id: req.user._id}, 'top_secret', {
-        expiresIn: 60 * 60 * 24 // equivalente a 24 horas
+        expiresIn: 60 * 60 * 24 
       })
-      // res.cookie('token', token)}
-      // res.redirect('http://localhost:3000/')
+      res.cookie('token', token)
       res.send(req.user.id)
+      // res.redirect('http://localhost:3000/')
     } else {
       res.redirect('http://localhost:3000/login')
     }
   }
 );
 
-loginGoogleRouter.get("/prueba", (req, res) => {
-  // console.log(req.user)
-  res.send(req.user.id)
-})
-
-loginGoogleRouter.get("/profile", (req,res,next) => {
-   res.redirect("http://localhost:3000/login")
-})
+//ruta para ingresar
 
 
 loginGoogleRouter.get(
-  "/callback",
-  passport.authenticate("sign-up-google", {scope: ['https://www.googleapis.com/auth/plus.login'], session: false }),
+  "/signin",
+  passport.authenticate("sign-in-google", {scope: ['https://www.googleapis.com/auth/plus.login'], session: false }),
   function (req, res) {
     if (req.user) { 
       const token = jwt.sign({id: req.user._id}, 'top_secret', {
-        expiresIn: 60 * 60 * 24 // equivalente a 24 horas
+        expiresIn: 60 * 60 * 24 
       })
-      res.cookie('token', token)        
-      res.redirect('http://localhost:3000/login')
+      res.cookie('token', token)
+      res.send(req.user.id)
+      // res.redirect('http://localhost:3000/')
     } else {
-      res.redirect('http://localhost:3000/login')
+      res.redirect('http://localhost:3000/register')
     } 
   }
 );
