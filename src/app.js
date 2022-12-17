@@ -27,12 +27,12 @@ const server = express();
 server.use(cors({ origin: "http://localhost:3000" }));
 server.use(morgan("dev"));
 server.use(bodyParser.json());
+server.use(cookieParser("mysecretsession"))
 server.use(session({
   secret: 'mysecretsession',
   resave: true,
   saveUninitialized: true
 }))
-server.use(cookieParser("mysecretsession"))
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(cors())
@@ -42,7 +42,6 @@ server.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
-
 
 
 server.use("/users", userRouter);
