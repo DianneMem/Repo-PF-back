@@ -10,18 +10,14 @@ loginLocalRouter.post("/signup", passport.authenticate('local-signup'),(req,res)
   // res.redirect('http://localhost:3000/')
 })
 
-// loginLocalRouter.post("/signin", passport.authenticate("local-signin"), (req, res) => {
+loginLocalRouter.post("/signin", passport.authenticate("local-signin"), (req, res) => {
+  try {
+    // res.send("hola");
+    res.redirect('http://localhost:3000/')
+  } catch (error) {
+    res.send("datossjsj")
+  }
 
-//   res.send("hola");
-// })
+})
 
-// loginRouter.get("/singin", (req,res,next) => {
-
-// })
-
-
-// loginRouter.post("/singin", (req,res,next) => {
-  
-// })
-
-module.exports = loginLocalRouter;
+module.exports = loginLocalRouter

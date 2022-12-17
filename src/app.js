@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const session = require("express-session")
-// const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser")
 
 const passport = require("passport");
 const bodyParser = require("body-parser");
@@ -27,6 +27,7 @@ const server = express();
 server.use(cors({ origin: "http://localhost:3000" }));
 server.use(morgan("dev"));
 server.use(bodyParser.json());
+server.use(cookieParser("mysecretsession"))
 server.use(session({
   secret: 'mysecretsession',
   resave: true,
@@ -42,7 +43,6 @@ server.use(function (req, res, next) {
   next();
 });
 
-// server.use(cookieParser("mysecretsession"))
 
 server.use("/users", userRouter);
 server.use("/products", productRouter);
