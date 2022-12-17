@@ -65,14 +65,13 @@ exports.findUserStripe = async (req, res) => {
         res.status(400).send(err)
       }if(customers)
       {
-        let result= await customers.data.map(e=>  e={username:e.name})
-          const userFilter = user.find((user) =>
+        let result= await customers.data.map(e=>  e={username:e.name,
+        id:e.id})
+          const userFilter = result.find((user) =>
           user.username ===username
         );
-        console.log(userFilter);
-        
-        let finalResult= result.find(e=>e.username===userFilter.username)
-        res.status(200).send(userFilter)
+        console.log(userFilter)
+        res.status(200).send(userFilter.id)
       }else{
         res.status(400).send("error")
       }
