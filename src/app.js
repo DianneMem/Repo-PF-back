@@ -11,6 +11,9 @@ const productRouter = require("./routes/productRoutes");
 const categorieRouter = require("./routes/categorieRoutes")
 const genderRouter = require("./routes/genderRoutes")
 const languageRouter = require("./routes/languageRoutes")
+const authorRouter = require("./routes/authorRoutes")
+const sagaRouter = require("./routes/sagaRoutes")
+const editorialRouter = require("./routes/editorialRoutes")
 const filtersRouter = require("./routes/filtersRoutes")
 const loginGoogleRouter = require("./routes/google-authRoutes")
 const loginLocalRouter = require("./routes/local-authRoutes")
@@ -49,6 +52,9 @@ server.use("/products", productRouter);
 server.use("/categories", categorieRouter);
 server.use("/genders", genderRouter);
 server.use("/languages", languageRouter);
+server.use("/authors", authorRouter);
+server.use("/sagas", sagaRouter);
+server.use("/editorials", editorialRouter);
 server.use("/filters", filtersRouter);
 server.use("/google", loginGoogleRouter);
 server.use("/local", loginLocalRouter);
