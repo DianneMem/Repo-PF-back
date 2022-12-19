@@ -14,14 +14,47 @@ exports.storageUser = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
     const user = await User.findById(req.params.id)
-    let storageUser= await user.storage.push(req.body)
+   let aux= user.storage.filter(e=>e._id===req.body._id)
+    if(aux.length){
+      
+    }else{
+      await user.storage.push(req.body)
+      await user.save();
+      res.status(200).send(user);
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+exports.deleteStorageItem = async (req, res) => {
+  const {item}=req.query
+  console.log(item);
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+   user.storage=await user.storage.filter(e=>e._id!==item)
+      await user.save();
+      res.status(200).send(user);
+      
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+
+exports.storageClear = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+    let storageAux= []
+    user.storage=storageAux
     await user.save();
     res.status(200).send(user);
   } catch (error) {
     res.status(400).send(error.message);
   }
 };
-
 
 exports.getUser = async (req, res) => {
   const { name } = req.query;
