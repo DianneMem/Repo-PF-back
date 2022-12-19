@@ -73,7 +73,7 @@ exports.findUserStripe = async (req, res) => {
         console.log(userFilter)
         res.status(200).send(userFilter)
       }else{
-        res.status(400).send("error")
+        res.status(400).send("error") 
       }
   })
   } catch (error) {
