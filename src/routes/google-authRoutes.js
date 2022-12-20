@@ -3,7 +3,6 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const loginGoogleRouter = Router()
 const User = require("../models/User");
-const { profile } = require("console");
 
 //rutas para Google
 
@@ -11,13 +10,14 @@ const { profile } = require("console");
 
 loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], session: false }),
   function (req, res) {
+    console.log("ruta",req.user)
     if (req.user) {
-      const token = jwt.sign({id: req.user._id}, 'top_secret', {
-        expiresIn: 60 * 60 * 24 
+      const token = jwt.sign({id: req.user.id, username: req.user.displayName, email: req.user.emails[0].value}, 'top_secret', {
+        expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
-      res.cookie('token', token)
-      // res.send(req.user)
-      res.redirect('http://localhost:3000/')
+      // console.log("token :",token) 
+      res.cookie(token)  
+      res.redirect('http://localhost:3000/login')
     } else {
       res.redirect('http://localhost:3000/login')
     }
@@ -30,14 +30,18 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
 loginGoogleRouter.get(
   "/signin",
   passport.authenticate("sign-in-google", {scope: ['https://www.googleapis.com/auth/plus.login'], session: false }),
-  function (req, res) {
+ async function (req, res) {
     if (req.user) { 
-      const token = jwt.sign({id: req.user._id}, 'top_secret', {
-        expiresIn: 60 * 60 * 24 
+      const token = jwt.sign({id: req.user.id, username: req.user.username, email: req.user.email}, 'top_secret', {
+        expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
-      res.cookie('token', token)
-      // res.send(req.user)
-      res.redirect('http://localhost:3000/')
+      // console.log("aaaaa",req.user)
+      // res.cookie("jwt",token,{
+      //   expires:new Date(Date.now()+5000),
+      //   httpOnly:true
+      // }).send(token)
+      res.cookie(token)  
+      // res.redirect('http://localhost:3000/')
     } else {
       res.redirect('http://localhost:3000/register')
     } 
