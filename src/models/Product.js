@@ -9,6 +9,13 @@ const Product = new Schema({
       return new ObjectId().toString();
     },
   },
+  seller: {
+    type: String,
+    required: true,
+  },
+  reviews: {
+    type: Array
+  },
   title: {
     type: String,
     required: true,
