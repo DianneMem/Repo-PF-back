@@ -71,7 +71,7 @@ exports.findUserStripe = async (req, res) => {
           user.username ===username
         );
         console.log(userFilter)
-        res.status(200).send(userFilter.id)
+        res.status(200).send(userFilter)
       }else{
         res.status(400).send("error")
       }

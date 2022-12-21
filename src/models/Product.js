@@ -9,6 +9,13 @@ const Product = new Schema({
       return new ObjectId().toString();
     },
   },
+  seller: {
+    type: String,
+    required: true,
+  },
+  sellerId: {
+    type: String
+  },
   title: {
     type: String,
     required: true,

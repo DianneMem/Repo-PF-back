@@ -43,25 +43,21 @@ const User = new Schema({
     type: Boolean,
     default: false, 
   },
+  purchases:{
+    type: Array
+  },
+  favorites: {
+    type: Array
+  },
+  myproducts: {
+    type: Array
+  },
+  reviews: {
+    type: Array
+  }
+
 });
 
-// , {
-//   hooks: {
-//     beforeCreate: async function(user) {
-//       const salt = await bcrypt.genSalt(10);
-//       user.password = await bcrypt.hash(user.password, salt);
-//     }
-//   }
-
-// }
-
-// User.methods.encryptPassword = (password) => {
-//   return bcrypt.hashSync(password, bcrypt.genSaltSync(10) )
-// }
-
-// User.methods.comparePassword = function (password) {
-//   return bcrypt.compareSync(password, this.password);
-// }
 
 
 module.exports = model("User", User);

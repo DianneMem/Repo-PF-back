@@ -21,7 +21,6 @@ passport.use("sign-up-google",new GoogleStrategy(
   },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id); // si el usuario no existe 
-    console.log("prueba1",profile)
                                                   //lo creamos
     if (user) {
       done("ya estas registrado");
@@ -46,7 +45,7 @@ passport.use("sign-in-google",new GoogleStrategy(
   },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id);// si existe en la base de datos
-                                                 //  puede iniciar sesion
+                                            //  puede iniciar sesion
     if (user) {
       done(null, user)
     } else {
