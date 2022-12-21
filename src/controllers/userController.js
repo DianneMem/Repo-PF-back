@@ -16,7 +16,7 @@ exports.storageUser = async (req, res) => {
     const user = await User.findById(req.params.id)
    let aux= user.storage.filter(e=>e._id===req.body._id)
     if(aux.length){
-      
+      res.status(400).send("the Item already exists in your storage")
     }else{
       await user.storage.push(req.body)
       await user.save();
@@ -42,6 +42,21 @@ exports.deleteStorageItem = async (req, res) => {
   }
 };
 
+exports.deleteFavoriteItem = async (req, res) => {
+  const {item}=req.query
+  console.log(item);
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+   user.favorites=await user.storage.filter(e=>e._id!==item)
+      await user.save();
+      res.status(200).send(user);
+      
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 
 exports.storageClear = async (req, res) => {
   try {
@@ -49,6 +64,19 @@ exports.storageClear = async (req, res) => {
     const user = await User.findById(req.params.id)
     let storageAux= []
     user.storage=storageAux
+    await user.save();
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+exports.clearFavorites = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+    let storageAux= []
+    user.favorites=storageAux
     await user.save();
     res.status(200).send(user);
   } catch (error) {
