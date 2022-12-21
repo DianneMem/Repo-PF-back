@@ -43,8 +43,10 @@ const User = new Schema({
   },
   myproducts: {
     type: Array
+  },
+  reviews: {
+    type: Array
   }
-
 });
 //revisar validadciones a nivel backend y db
 
