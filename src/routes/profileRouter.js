@@ -3,9 +3,11 @@ const profileController = require("../controllers/profileController")
 
 const router = Router()
 
-router.use("/purchases/:id",profileController.addPurchaseUser)
-router.use("/favorites/:id",profileController.addFavorites)
-router.use("/myproducts/:id",profileController.addMyProducts)
+router.post("/purchases/:id",profileController.addPurchaseUser)
+router.post("/favorites/:id",profileController.addFavorites)
+router.post("/myproducts/:id",profileController.addMyProducts)
+router.post("/reviews/:id",profileController.addReviews)
+
 
 
 module.exports = router;

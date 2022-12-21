@@ -13,8 +13,8 @@ const Product = new Schema({
     type: String,
     required: true,
   },
-  reviews: {
-    type: Array
+  sellerId: {
+    type: String
   },
   title: {
     type: String,
