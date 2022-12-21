@@ -34,7 +34,17 @@ const User = new Schema({
   role:{
     type:String,
     default:"user"
+  },
+  purchases:{
+    type: Array
+  },
+  favorites: {
+    type: Array
+  },
+  myproducts: {
+    type: Array
   }
+
 });
 //revisar validadciones a nivel backend y db
 
