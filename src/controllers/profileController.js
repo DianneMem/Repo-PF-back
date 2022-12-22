@@ -46,6 +46,22 @@ exports.addMyProducts = async (req, res) => {
   }
 };
 
+exports.getMyProducts= async (req,res)=>{
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+    if(!req.params.id){
+      res.status(400).send("Incomplete Data")
+    } else {
+      res.status(200).send(user.myproducts);
+    }
+
+
+  } catch (error) {
+    
+  }
+}
+
 exports.addReviews = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");

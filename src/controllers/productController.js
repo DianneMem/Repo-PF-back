@@ -1,11 +1,14 @@
 const Product = require("../models/Product");
-
+const User = require("../models/User");
 exports.newProduct = async (req, res) => {
   const product = new Product(req.body);
-
+  res.header("Access-Control-Allow-Origin", "*");
+  const user = await User.findById(req.params.id)
   console.log(product)
   try {
+    user.myproducts.push(req.body)
     await product.save();
+    await user.save()
     res.status(202).send(product);
   } catch (error) {
     res.status(400).send(error.message);
