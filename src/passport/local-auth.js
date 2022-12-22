@@ -2,6 +2,7 @@ const User = require("../models/User");
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken");
 const config = require("../configuration/config");
 
 exports.register = async (req, res) => {
@@ -87,8 +88,6 @@ exports.confirm = async (req, res) => {
   res.redirect("http://localhost:3000/login");
 };
 
-
-
 exports.recoverPassword = async (req, res) => {
   await check("email").isEmail().withMessage("example@example.com").run(req);
   let result = validationResult(req);
@@ -104,9 +103,9 @@ exports.recoverPassword = async (req, res) => {
   }
 
   const newPassword = Math.random().toString(32).substring(2);
-  
+
   const salt = await bcrypt.genSalt(10);
-  const passCrypt= await bcrypt.hash(newPassword, salt);
+  const passCrypt = await bcrypt.hash(newPassword, salt);
   user.password = passCrypt;
 
   await user.save();
@@ -141,22 +140,35 @@ exports.recoverPassword = async (req, res) => {
     email: user.email,
     password: newPassword,
   });
-res.send("ok")
-
+  res.send("ok");
 };
 
 exports.loginLocal = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username: username });
+
   if (user) {
-    // check user password with hashed password stored in the database
     const validPassword = await bcrypt.compare(password, user.password);
-    if (validPassword) {
-      res.status(200).json({ message: "Valid password" });
+    if (validPassword && user.confirm) {
+      const token = jwt.sign(
+        { id: user.id, username: user.username, role: user.role, email: user.email },
+        "top_secret",
+        {
+          expiresIn: 60 * 60 * 24, 
+        }
+      );
+      res
+        .cookie("jwt", token, {
+          expires: new Date(Date.now() + 5000),
+          httpOnly: true,
+        })
+        .send(token);
     } else {
-      res.status(400).json({ error: "Invalid Password" });
+      res.redirect("http://localhost:3000/login");
     }
   } else {
-    res.status(401).json({ error: "User does not exist" });
+    res.redirect("http://localhost:3000/register");
+
   }
 };
