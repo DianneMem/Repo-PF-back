@@ -6,7 +6,7 @@ const loginLocalRouter = Router()
 
 loginLocalRouter.post("/register", localAuth.register);
 loginLocalRouter.get("/confirm/:token", localAuth.confirm);
-loginLocalRouter.get("/login", localAuth.loginLocal);
+loginLocalRouter.post("/login", localAuth.loginLocal);
 loginLocalRouter.post("/recover-password", localAuth.recoverPassword);
 
 
