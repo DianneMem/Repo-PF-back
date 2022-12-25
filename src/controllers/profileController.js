@@ -46,6 +46,24 @@ exports.addMyProducts = async (req, res) => {
   }
 };
 
+exports.updateProductProfile = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+    let productFind=user.myproducts.find(e=>e._id===req.query.item)
+    productFind=req.body
+    let aux= user.myproducts.filter(e=>e._id!==req.query.item)
+    aux.push(productFind);
+    user.myproducts=aux
+    await user.save()
+      res.status(200).send(productFind);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+
+
 exports.getMyProducts= async (req,res)=>{
   try {
     res.header("Access-Control-Allow-Origin", "*");
