@@ -99,7 +99,7 @@ exports.recoverPassword = async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) {
-    res.send("Invalid email");
+    return res.send("Invalid email");
   }
 
   const newPassword = Math.random().toString(32).substring(2);
