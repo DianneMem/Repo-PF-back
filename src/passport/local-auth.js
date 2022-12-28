@@ -165,10 +165,10 @@ exports.loginLocal = async (req, res) => {
         })
         .send(token);
     } else {
-      res.redirect("http://localhost:3000/login");
+      res.send("Incorrect password");
     }
   } else {
-    res.redirect("http://localhost:3000/register");
+    res.send("Incorrect data");
 
   }
 };
