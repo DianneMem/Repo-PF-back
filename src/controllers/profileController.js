@@ -5,7 +5,7 @@ exports.addPurchaseUser = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
     const user = await User.findById(req.params.id)
-    if(!req.body.username || !req.body.productId || !req.body.sellerId || !req.body.image){
+    if(!req.body.username || !req.body.productId || !req.body.sellerId || !req.body.image || !req.body.title){
       res.status(400).send("Incomplete Data")
     } else {
       user.purchases.push(req.body)
