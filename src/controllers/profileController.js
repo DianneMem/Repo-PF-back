@@ -97,4 +97,32 @@ exports.addReviews = async (req, res) => {
 };
 
 
+exports.getAllReviews= async (req,res)=>{
+  try {
+      const users = await User.find({})
+      const reviews = users.filter((elm) => {
+        return elm.reviews.length !== 0
+      })
+      let result = []
+      reviews.forEach(element => {
+        element.reviews.map((elm) => result.push(elm))
+      });
+      // const result = reviews.map((elm) => elm.reviews)
+      res.status(200).send(result)
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+}
 
+exports.getReviewUser= async (req,res)=>{
+  const user = await User.findById(req.params.id);
+  const review = user.reviews
+  try {
+    if (!user) {
+      throw new Error("User not found");
+    }
+    res.status(200).json(review);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
