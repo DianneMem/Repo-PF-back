@@ -9,7 +9,8 @@ router.post("/myproducts/:id",profileController.addMyProducts)
 router.put("/myproducts/:id",profileController.updateProductProfile)
 router.post("/reviews/:id",profileController.addReviews)
 router.get("/myproducts/user/:id",profileController.getMyProducts)
-
+router.get("/allreviews",profileController.getAllReviews)
+router.get("/allreviews/:id",profileController.getReviewUser)
 
 
 module.exports = router;
