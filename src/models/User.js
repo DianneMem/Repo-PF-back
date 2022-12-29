@@ -54,8 +54,10 @@ const User = new Schema({
   },
   reviews: {
     type: Array
+  },
+  myreviews: {
+    type: Array
   }
-
 });
 
 

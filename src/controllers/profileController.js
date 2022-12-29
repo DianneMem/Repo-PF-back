@@ -96,6 +96,22 @@ exports.addReviews = async (req, res) => {
   }
 };
 
+exports.myReviews = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id)
+    if(!req.body.score || !req.body.comment || !req.body.sellerId || !req.body.productId){
+      res.status(400).send("Incomplete Data")
+    } else {
+      user.myreviews.push(req.body)
+      await user.save();
+      res.status(200).send(user);
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 
 exports.getAllReviews= async (req,res)=>{
   try {
@@ -122,6 +138,19 @@ exports.getReviewUser= async (req,res)=>{
       throw new Error("User not found");
     }
     res.status(200).json(review);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+
+exports.getMyReviews= async (req,res)=>{
+  const user = await User.findById(req.params.id);
+  const reviews = user.myreviews
+  try {
+    if (!user) {
+      throw new Error("User not found");
+    }
+    res.status(200).json(reviews);
   } catch (error) {
     res.status(400).send(error.message);
   }
