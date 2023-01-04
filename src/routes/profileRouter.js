@@ -13,6 +13,7 @@ router.get("/getmyreviews/:id",profileController.getMyReviews)
 router.get("/myproducts/user/:id",profileController.getMyProducts)
 router.get("/allreviews",profileController.getAllReviews)
 router.get("/allreviews/:id",profileController.getReviewUser)
+router.post("/sendMail",profileController.payMailing)
 
 
 module.exports = router;
