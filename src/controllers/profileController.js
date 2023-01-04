@@ -1,5 +1,6 @@
 const User = require("../models/User");
-
+const nodemailer = require("nodemailer");
+const config = require("../configuration/config");
 
 exports.addPurchaseUser = async (req, res) => {
   try {
@@ -16,6 +17,47 @@ exports.addPurchaseUser = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+
+exports.payMailing= async (req,res)=>{
+  try {
+    console.log("body:",req.body);
+    const payMailSend = async (data) => {
+      const transport = nodemailer.createTransport({
+        host: config.E_HOST,
+        port: config.E_PORT,
+        auth: {
+          user: config.E_USER,
+          pass: config.E_PASSWORD,
+        },
+      });
+      const { username, email, product,amount } = data;
+      await transport.sendMail({
+        from: "books.com",
+        to: email,
+        subject: "FlyBooks Purchases",
+        text: `Buy ${product.title}`,
+        html: `
+        <p> Hi! ${username}, thank you for your purchase! </p>
+        <p>Proof of payment: </p>
+        <p style="color: blue;"> Product Id:${product._id}</p>
+        <p style="font-weight: bold"> Title:${product.title}</p>
+        <p> State:${product.state}</p>
+        <p> Amount:${amount}</p>
+        `,
+      });
+    };
+    payMailSend({
+      username:req.body.username,
+      email:req.body.email,
+      product:req.body.product,
+      amount:req.body.amount
+    });
+    res.status(200).send("Mail sended!");
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
+}
 
 exports.addFavorites = async (req, res) => {
   try {
