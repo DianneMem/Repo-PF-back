@@ -31,6 +31,7 @@ passport.use("sign-up-google",new GoogleStrategy(
           newUser.username = profile.displayName
           newUser.password = ""
          await newUser.save() //guardamos en la base de datos
+      console.log('Usuario Nuevo', newUser)
       done(null, profile); //guardamos en la base de datos
     }
   }
