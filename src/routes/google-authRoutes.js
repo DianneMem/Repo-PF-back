@@ -9,13 +9,14 @@ const User = require("../models/User");
 //ruta para Registrarse
 
 loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], session: false }),
-  function (req, res) {
+  async function (req, res) {
     console.log("ruta",req.user)
+    const userData = await User.findById(req.user.id)
     if (req.user) {
-      const token = jwt.sign({id: req.user.id, username: req.user.displayName, email: req.user.emails[0].value}, 'top_secret', {
+      const token = jwt.sign({id: req.user.id, username: req.user.displayName, email: req.user.emails[0].value, role: userData.role}, 'top_secret', {
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
-      // console.log("token :",token) 
+      console.log("token 1:",token) 
       res.cookie(token)  
       res.redirect('http://localhost:3000/login')
     } else {
@@ -32,9 +33,10 @@ loginGoogleRouter.get(
   passport.authenticate("sign-in-google", {scope: ['https://www.googleapis.com/auth/plus.login'], session: false }),
  async function (req, res) {
     if (req.user) { 
-      const token = jwt.sign({id: req.user.id, username: req.user.username, email: req.user.email}, 'top_secret', {
+      const token = jwt.sign({id: req.user.id, username: req.user.username, email: req.user.email, role: req.user.role}, 'top_secret', {
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
+      console.log("token 2:",token) 
       // console.log("aaaaa",req.user)
       // res.cookie("jwt",token,{
       //   expires:new Date(Date.now()+5000),
