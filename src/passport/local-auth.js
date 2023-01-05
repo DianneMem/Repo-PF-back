@@ -42,11 +42,11 @@ exports.register = async (req, res) => {
 
   const emailRegister = async (data) => {
     const transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-  port: 2525,
-  auth: {
-    user: "fd4a0f3a81475d",
-    pass: "be7a7c215f7fdd"
+      host: config.E_HOST,
+      port: config.E_PORT,
+      auth: {
+        user: config.E_USER,
+        pass: config.E_PASSWORD,
       },
     });
     const { username, email, token } = data;
@@ -107,11 +107,11 @@ exports.recoverPassword = async (req, res) => {
   //send email
   const emailRecover = async (data) => {
     const transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-  port: 2525,
-  auth: {
-    user: "fd4a0f3a81475d",
-    pass: "be7a7c215f7fdd"
+      host: config.E_HOST,
+      port: config.E_PORT,
+      auth: {
+        user: config.E_USER,
+        pass: config.E_PASSWORD,
       },
     });
 
