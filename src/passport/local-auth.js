@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const config = require("../configuration/config");
@@ -14,11 +14,6 @@ exports.register = async (req, res) => {
     .isLength({ min: 6 })
     .withMessage("Min 6 character")
     .run(req);
-
-  // await check("password")
-  //   .equals("confirmation")
-  //   .withMessage("password not equals")
-  //   .run(req);
 
   let result = validationResult(req);
   //verification length
@@ -41,17 +36,17 @@ exports.register = async (req, res) => {
     token: generarId,
   });
 
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
+  const salt = await bcrypt.genSaltSync(10);
+  user.password = await bcrypt.hashSync(user.password, salt);
   await user.save();
 
   const emailRegister = async (data) => {
     const transport = nodemailer.createTransport({
-      host: config.E_HOST,
-      port: config.E_PORT,
-      auth: {
-        user: config.E_USER,
-        pass: config.E_PASSWORD,
+      host: "smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "fd4a0f3a81475d",
+    pass: "be7a7c215f7fdd"
       },
     });
     const { username, email, token } = data;
@@ -104,19 +99,19 @@ exports.recoverPassword = async (req, res) => {
 
   const newPassword = Math.random().toString(32).substring(2);
 
-  const salt = await bcrypt.genSalt(10);
-  const passCrypt = await bcrypt.hash(newPassword, salt);
+  const salt = await bcrypt.genSaltSync(10);
+  const passCrypt = await bcrypt.hashSync(newPassword, salt);
   user.password = passCrypt;
 
   await user.save();
   //send email
   const emailRecover = async (data) => {
     const transport = nodemailer.createTransport({
-      host: config.E_HOST,
-      port: config.E_PORT,
-      auth: {
-        user: config.E_USER,
-        pass: config.E_PASSWORD,
+      host: "smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "fd4a0f3a81475d",
+    pass: "be7a7c215f7fdd"
       },
     });
 
@@ -149,13 +144,18 @@ exports.loginLocal = async (req, res) => {
   const user = await User.findOne({ username: username });
 
   if (user) {
-    const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = await bcrypt.compareSync(password, user.password);
     if (validPassword && user.confirm) {
       const token = jwt.sign(
-        { id: user.id, username: user.username, role: user.role, email: user.email },
+        {
+          id: user.id,
+          username: user.username,
+          role: user.role,
+          email: user.email,
+        },
         "top_secret",
         {
-          expiresIn: 60 * 60 * 24, 
+          expiresIn: 60 * 60 * 24,
         }
       );
       res
@@ -169,6 +169,5 @@ exports.loginLocal = async (req, res) => {
     }
   } else {
     res.send("Incorrect data");
-
   }
 };
