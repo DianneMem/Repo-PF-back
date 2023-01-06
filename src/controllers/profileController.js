@@ -59,6 +59,47 @@ exports.payMailing= async (req,res)=>{
   }
 }
 
+exports.cartMailing= async (req,res)=>{
+  try {
+    console.log("body:",req.body);
+    const CartMailSend = async (data) => {
+      const transport = nodemailer.createTransport({
+        host: config.E_HOST,
+        port: config.E_PORT,
+        auth: {
+          user: config.E_USER,
+          pass: config.E_PASSWORD,
+        },
+      });
+      const { username, email, allProducts,amount } = data;
+      console.log(allProducts);
+      await transport.sendMail({
+        from: "books.com",
+        to: email,
+        subject: "FlyBooks Purchases",
+        text: `Buy `,
+        html: `
+        <p> Hi! ${username}, thank you for your purchase! </p>
+        <p>Proof of payment: </p>
+        <p style="color: blue;"> Products Id:${allProducts.map(e=>e._id)}</p>
+        <p style="font-weight: bold">Products Titles:${allProducts.map(e=>e.title)}</p>
+        <p>Total Amount:${amount}</p>
+        `,
+      });
+    };
+    CartMailSend({
+      username:req.body.username,
+      email:req.body.email,
+      allProducts:req.body.allProducts,
+      amount:req.body.amount
+    });
+    res.status(200).send("Mail sended!");
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
+}
+
 exports.addFavorites = async (req, res) => {
   try {
     res.header("Access-Control-Allow-Origin", "*");
@@ -104,6 +145,17 @@ exports.updateProductProfile = async (req, res) => {
   }
 };
 
+exports.updateBalance = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id);
+     user.balance=  user.balance + req.body.balance
+    await user.save()
+      res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 
 
 exports.getMyProducts= async (req,res)=>{
