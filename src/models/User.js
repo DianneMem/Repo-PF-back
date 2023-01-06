@@ -56,6 +56,16 @@ const User = new Schema({
   },
   myreviews: {
     type: Array
+  },
+  address:{
+    type:String
+  },
+  phone:{
+    type:String
+  },
+  balance:{
+    type:Number,
+    default:0
   }
 });
 

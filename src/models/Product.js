@@ -67,6 +67,9 @@ const Product = new Schema({
     type: String,
     required: true,
   },
+  buyers:{
+    type:Array
+  }
 });
 
 module.exports = model("Product", Product);
