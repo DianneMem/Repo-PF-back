@@ -145,6 +145,17 @@ exports.updateProductProfile = async (req, res) => {
   }
 };
 
+exports.updateBalance = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const user = await User.findById(req.params.id);
+     user.balance=  user.balance + req.body.balance
+    await user.save()
+      res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
 
 
 exports.getMyProducts= async (req,res)=>{
