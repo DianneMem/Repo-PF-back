@@ -15,6 +15,20 @@ exports.newProduct = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+exports.addBuyers = async (req, res) => {
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    const prod = await Product.findById(req.params.id)
+
+   await prod.buyers.push(req.body)
+      await prod.save();
+      res.status(200).send(prod);
+    
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
+};
 
 exports.getProduct = async (req, res) => {
   const { search } = req.query;
