@@ -8,7 +8,7 @@ const User = require("../models/User");
 
 //ruta para Registrarse
 
-loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], session: false }),
+loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: ['https://www.googleapis.com/auth/plus.login','https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], session: false }),
   async function (req, res) {
     console.log("ruta",req.user)
     const userData = await User.findById(req.user.id)
@@ -30,7 +30,7 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
 
 loginGoogleRouter.get(
   "/signin",
-  passport.authenticate("sign-in-google", {scope: ['https://www.googleapis.com/auth/plus.login'], session: false }),
+  passport.authenticate("sign-in-google", {scope: ['https://www.googleapis.com/auth/plus.login','https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], session: false }),
  async function (req, res) {
     if (req.user) { 
       const token = jwt.sign({id: req.user.id, username: req.user.username, email: req.user.email, role: req.user.role}, 'top_secret', {
@@ -43,7 +43,7 @@ loginGoogleRouter.get(
       //   httpOnly:true
       // }).send(token)
       res.cookie(token)  
-      // res.redirect('http://localhost:3000/')
+      res.redirect('http://localhost:3000/')
     } else {
       res.redirect('http://localhost:3000/register')
     } 
