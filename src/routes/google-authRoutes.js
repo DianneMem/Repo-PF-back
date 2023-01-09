@@ -43,7 +43,7 @@ loginGoogleRouter.get(
       //   httpOnly:true
       // }).send(token)
       res.cookie(token)  
-      res.redirect('http://localhost:3000/')
+      // res.redirect('http://localhost:3000/')
     } else {
       res.redirect('http://localhost:3000/register')
     } 

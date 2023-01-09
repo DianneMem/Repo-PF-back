@@ -20,15 +20,15 @@ passport.use("sign-up-google",new GoogleStrategy(
   //   callbackURL: "http://localhost:3001/google/signup",
   // },
   {
-    clientID:"277731779597-d80i1kmlhh0tu5kkmqo6538mempht702.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID:"10087403036-lkolv3beb9s7em3ggm4kob4j3inbpfo7.apps.googleusercontent.com",
+    clientSecret: "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",
     callbackURL: "https://flybooks.up.railway.app/google/signup",
   },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id); // si el usuario no existe 
                                                   //lo creamos
     if (user) {
-      done("ya estas registrado");
+      done("you are already registered");
     } else {
       let newUser = new User();
           newUser._id = profile.id
@@ -51,8 +51,8 @@ passport.use("sign-in-google",new GoogleStrategy(
   //   callbackURL: "http://localhost:3001/google/signin",
   // },
   {
-    clientID:"277731779597-d80i1kmlhh0tu5kkmqo6538mempht702.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID:"10087403036-lkolv3beb9s7em3ggm4kob4j3inbpfo7.apps.googleusercontent.com",
+    clientSecret: "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",
     callbackURL: "https://flybooks.up.railway.app/google/signin",
   },
   async (accessToken, refreshToken, profile, done) => {
@@ -61,7 +61,7 @@ passport.use("sign-in-google",new GoogleStrategy(
     if (user) {
       done(null, user)
     } else {
-      done("usuario no registrado")
+      done("user is not registered")  
     }
     
   }
