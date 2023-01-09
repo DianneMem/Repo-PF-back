@@ -14,16 +14,16 @@ passport.deserializeUser(async (id, done) => {
 
 
 passport.use("sign-up-google",new GoogleStrategy(
-  {
-    clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
-    clientSecret: "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",
-    callbackURL: "http://localhost:3001/google/signup",
-  },
   // {
-  //   clientID:"10087403036-lkolv3beb9s7em3ggm4kob4j3inbpfo7.apps.googleusercontent.com",
-  //   clientSecret: "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",
-  //   callbackURL: "https://flybooks.up.railway.app/google/signup",
+  //   clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
+  //   clientSecret: "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",
+  //   callbackURL: "http://localhost:3001/google/signup",
   // },
+  {
+    clientID:"557885841390-1t2p42ofgl3de7hqgdmev8khsdtk4vkq.apps.googleusercontent.com",
+    clientSecret: "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",
+    callbackURL: "https://flybooks.up.railway.app/google/signup",
+  },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id); // si el usuario no existe 
                                                   //lo creamos
@@ -45,16 +45,16 @@ passport.use("sign-up-google",new GoogleStrategy(
 );
 
 passport.use("sign-in-google",new GoogleStrategy(
-  {
-    clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
-    clientSecret: "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",
-    callbackURL: "http://localhost:3001/google/signin",
-  },
   // {
-  //   clientID:"10087403036-lkolv3beb9s7em3ggm4kob4j3inbpfo7.apps.googleusercontent.com",
-  //   clientSecret: "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",
-  //   callbackURL: "https://flybooks.up.railway.app/google/signin",
+  //   clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
+  //   clientSecret: "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",
+  //   callbackURL: "http://localhost:3001/google/signin",
   // },
+  {
+    clientID:"557885841390-1t2p42ofgl3de7hqgdmev8khsdtk4vkq.apps.googleusercontent.com",
+    clientSecret: "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",
+    callbackURL: "https://flybooks.up.railway.app/google/signin",
+  },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id);// si existe en la base de datos
                                             //  puede iniciar sesion
