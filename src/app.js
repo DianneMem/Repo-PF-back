@@ -19,6 +19,7 @@ const loginGoogleRouter = require("./routes/google-authRoutes")
 const loginLocalRouter = require("./routes/local-authRoutes")
 const paymentRouter= require("./routes/paymentRoutes")
 const profileRouter = require("./routes/profileRouter")
+const loginGoogleRouterAuth0 = require("./routes/loginGoogleRoutes")
 const stripe = require("stripe")
 
 
@@ -60,7 +61,7 @@ server.use("/filters", filtersRouter);
 server.use("/google", loginGoogleRouter);
 server.use("/local", loginLocalRouter);
 server.use("/profile",profileRouter);
-
+server.use("/logingoogle", loginGoogleRouterAuth0)
 
 // server.use("/",passport.authenticate("sign-up-google",{
 //   scope:[
