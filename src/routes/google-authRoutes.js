@@ -20,12 +20,12 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
       res.cookie(token, {
         sameSite : "none",
         secure: true,
-        domain: "http://localhost:3000",
+        domain: "flybooks.vercel.app",
         httpOnly: true
         })  
-      res.redirect('http://localhost:3000/login')
+      res.redirect('http://flybooks.vercel.app/login')
     } else {
-      res.redirect('http://localhost:3000/login')
+      res.redirect('http://flybooks.vercel.app/login')
     }
   }
 );
@@ -50,12 +50,12 @@ loginGoogleRouter.get(
       res.cookie(token, {
         sameSite : "none",
         secure: true,
-        domain: "http://localhost:3000",
+        domain: "flybooks.vercel.app",
         httpOnly: true
         })  
       // res.redirect('http://localhost:3000/')
     } else {
-      res.redirect('http://localhost:3000/register')
+      res.redirect('http://flybooks.vercel.app/register')
     } 
   }
 );
