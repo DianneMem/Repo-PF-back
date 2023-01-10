@@ -17,7 +17,7 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
       console.log("token 1:",token) 
-      res.cookie(token, {
+      res.cookie("test",token, {
         sameSite : "none",
         secure: true,
         domain: "http://localhost:3000",
@@ -47,7 +47,7 @@ loginGoogleRouter.get(
       //   expires:new Date(Date.now()+5000),
       //   httpOnly:true
       // }).send(token)
-      res.cookie(token, {
+      res.cookie("test",token, {
         sameSite : "none",
         secure: true,
         domain: "http://localhost:3000",
