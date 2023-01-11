@@ -62,7 +62,8 @@ server.use("/authors", authorRouter);
 server.use("/sagas", sagaRouter);
 server.use("/editorials", editorialRouter);
 server.use("/filters", filtersRouter);
-server.use("/google", loginGoogleRouter);
+// server.use("/google", loginGoogleRouter);
+server.use("/auth", loginGoogleRouter);
 server.use("/local", loginLocalRouter);
 server.use("/profile",profileRouter);
 server.use("/logingoogle", loginGoogleRouterAuth0)
