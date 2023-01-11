@@ -23,7 +23,7 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
         domain: "flybooks.vercel.app",
         httpOnly: true
         })  
-      res.redirect('http://flybooks.vercel.app/login')
+      // res.redirect('http://flybooks.vercel.app/login')
     } else {
       res.redirect('http://flybooks.vercel.app/login')
     }
