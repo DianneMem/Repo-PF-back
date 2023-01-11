@@ -17,7 +17,7 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
       console.log("token 1:",token) 
-      res.cookie("jwt",token).redirect("http://localhost:3000/login")
+      res.cookie("jwt",token).redirect('https://flybooks.up.railway.app/login')
     } else {
       res.redirect('http://flybooks.vercel.app/login')
     }
@@ -37,7 +37,7 @@ loginGoogleRouter.get(
       })
       console.log("token 2:",token) 
       // console.log("aaaaa",req.user)
-      res.cookie("jwt",token).redirect('http://localhost:3000/')
+      res.cookie("jwt",token).redirect('https://flybooks.up.railway.app/')
   
       // res.redirect('http://localhost:3000/')
     } else {
