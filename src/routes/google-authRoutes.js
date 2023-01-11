@@ -16,7 +16,9 @@ loginGoogleRouter.get("/google/callback",passport.authenticate("sign-up-google",
       })
       console.log("token 1:",token) 
       res.cookie("token",token)
-      res.redirect('http://flybooks.vercel.app/login')
+      // res.redirect('http://flybooks.vercel.app/login')
+      res.redirect('http://localhost:3000/login')
+
   }
 );
 
