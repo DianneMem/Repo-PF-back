@@ -17,9 +17,9 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
       console.log("token 1:",token) 
-      res.cookie("jwt",token).redirect('https://flybooks.vercel.app/login')
+      res.cookie("jwt",token).redirect('https://flybooks.up.railway.app/').redirect('http://flybooks.vercel.app/login')
     } else {
-      res.redirect('https://flybooks.vercel.app/login')
+      res.redirect('http://flybooks.vercel.app/login')
     }
   }
 );
@@ -37,11 +37,11 @@ loginGoogleRouter.get(
       })
       console.log("token 2:",token) 
       // console.log("aaaaa",req.user)
-      res.cookie("jwt",token).redirect('http://flybooks.vercel.app/')
+      res.cookie("jwt",token).redirect('https://flybooks.up.railway.app/').redirect('http://flybooks.vercel.app/')
   
       // res.redirect('http://localhost:3000/')
     } else {
-      res.redirect('http://flybooks.vercel.app/')
+      res.redirect('http://flybooks.vercel.app/register')
     } 
   }
 );
