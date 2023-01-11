@@ -37,11 +37,11 @@ loginGoogleRouter.get(
       })
       console.log("token 2:",token) 
       // console.log("aaaaa",req.user)
-      res.cookie("jwt",token).redirect('https://flybooks.up.railway.app/')
+      res.cookie("jwt",token).redirect('http://flybooks.vercel.app/')
   
       // res.redirect('http://localhost:3000/')
     } else {
-      res.redirect('http://flybooks.vercel.app/register')
+      res.redirect('http://flybooks.vercel.app/')
     } 
   }
 );
