@@ -28,6 +28,10 @@ require("./passport/local-auth")
 require("./passport/google-auth")
 
 
+require("./passport/verify-token")
+
+
+
 const server = express();
 server.use(cors({ origin: "http://localhost:3000" }));
 server.use(morgan("dev"));
@@ -63,7 +67,7 @@ server.use("/local", loginLocalRouter);
 server.use("/profile",profileRouter);
 server.use("/logingoogle", loginGoogleRouterAuth0)
 
-// server.use("/",passport.authenticate("sign-up-google",{
+// server.use("/google/signup",passport.authenticate("sign-up-google",{
 //   scope:[
 //     "https://www.googleapis.com/auth/userinfo.profile",
 //     "https://www.googleapis.com/auth/userinfo.email"
