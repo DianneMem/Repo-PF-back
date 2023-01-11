@@ -15,19 +15,14 @@ passport.deserializeUser(async (id, done) => {
 
 passport.use("sign-up-google",new GoogleStrategy(
   {
-    clientID:"1013303705922-cjeh5isekkv1ud7j7nqr3vbklehjlti3.apps.googleusercontent.com",
-    clientSecret: "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",
-    callbackURL: "https://fly-books.up.railway.app/auth/google/callback",
+    clientID:"524525531156-05s7nkt42tg6for0jto328g8bahki9em.apps.googleusercontent.com",
+    clientSecret: "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",
+    callbackURL: "http://localhost:3001/google/signup",
   },
   // {
-  //   clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
-  //   clientSecret: "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",
+  //   clientID:"524525531156-05s7nkt42tg6for0jto328g8bahki9em.apps.googleusercontent.com",
+  //   clientSecret: "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",
   //   callbackURL: "http://localhost:3001/google/signup",
-  // },
-  // {
-  //   clientID:"557885841390-orieri1na32f9lvv5idij1j92fnbuuqv.apps.googleusercontent.com",
-  //   clientSecret: "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",
-  //   callbackURL: "https://fly-books.up.railway.app/google/signup",
   // },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id); // si el usuario no existe 
@@ -51,19 +46,14 @@ passport.use("sign-up-google",new GoogleStrategy(
 
 passport.use("sign-in-google",new GoogleStrategy(
   {
-    clientID:"1013303705922-cjeh5isekkv1ud7j7nqr3vbklehjlti3.apps.googleusercontent.com",
-    clientSecret: "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",
-    callbackURL: "https://fly-books.up.railway.app/auth/google/signup",
+    clientID:"524525531156-05s7nkt42tg6for0jto328g8bahki9em.apps.googleusercontent.com",
+    clientSecret: "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",
+    callbackURL: "http://localhost:3001/google/signin",
   },
   // {
-  //   clientID:"277731779597-q1t46bft9uir7s2ttpg6altgrv41lk0m.apps.googleusercontent.com",
-  //   clientSecret: "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",
+  //   clientID:"524525531156-05s7nkt42tg6for0jto328g8bahki9em.apps.googleusercontent.com",
+  //   clientSecret: "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",
   //   callbackURL: "http://localhost:3001/google/signin",
-  // },
-  // {
-  //   clientID:"557885841390-orieri1na32f9lvv5idij1j92fnbuuqv.apps.googleusercontent.com",
-  //   clientSecret: "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",
-  //   callbackURL: "https://fly-books.up.railway.app/google/signin",
   // },
   async (accessToken, refreshToken, profile, done) => {
     const user = await User.findById(profile.id);// si existe en la base de datos

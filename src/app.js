@@ -28,7 +28,7 @@ require("./passport/local-auth")
 require("./passport/google-auth")
 
 
-require("./passport/verify-token")
+// require("./passport/verify-token")
 
 
 
@@ -62,8 +62,8 @@ server.use("/authors", authorRouter);
 server.use("/sagas", sagaRouter);
 server.use("/editorials", editorialRouter);
 server.use("/filters", filtersRouter);
-// server.use("/google", loginGoogleRouter);
-server.use("/auth", loginGoogleRouter);
+server.use("/google", loginGoogleRouter);
+// server.use("/auth", loginGoogleRouter);
 server.use("/local", loginLocalRouter);
 server.use("/profile",profileRouter);
 server.use("/logingoogle", loginGoogleRouterAuth0)
