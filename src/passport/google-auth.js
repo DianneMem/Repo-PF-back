@@ -15,8 +15,8 @@ passport.deserializeUser(async (id, done) => {
 
 passport.use("sign-up-google",new GoogleStrategy(
   {
-    clientID:"1013303705922-c8gu83o6csnp29bi6t0sequ4hm6hd177.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID:"1013303705922-cjeh5isekkv1ud7j7nqr3vbklehjlti3.apps.googleusercontent.com",
+    clientSecret: "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",
     callbackURL: "https://fly-books.up.railway.app/auth/google/callback",
   },
   // {
@@ -51,8 +51,8 @@ passport.use("sign-up-google",new GoogleStrategy(
 
 passport.use("sign-in-google",new GoogleStrategy(
   {
-    clientID:"1013303705922-c8gu83o6csnp29bi6t0sequ4hm6hd177.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID:"1013303705922-cjeh5isekkv1ud7j7nqr3vbklehjlti3.apps.googleusercontent.com",
+    clientSecret: "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",
     callbackURL: "https://fly-books.up.railway.app/auth/google/signup",
   },
   // {
