@@ -8,6 +8,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const userRouter = require("./routes/userRoutes");
 const productRouter = require("./routes/productRoutes");
+const redirectRouter = require("./routes/redirectRoutes");
 const categorieRouter = require("./routes/categorieRoutes")
 const genderRouter = require("./routes/genderRoutes")
 const languageRouter = require("./routes/languageRoutes")
@@ -54,6 +55,7 @@ server.use(function (req, res, next) {
 
 
 server.use("/users", userRouter);
+server.use("/login", redirectRouter);
 server.use("/products", productRouter);
 server.use("/categories", categorieRouter);
 server.use("/genders", genderRouter);
