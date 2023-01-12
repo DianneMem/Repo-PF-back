@@ -3,7 +3,7 @@ const loginGoogleRouteAuth0 = require("../controllers/loginGoogleAuth0");
 
 const router = Router();
 
-router.post("/", loginGoogleRouteAuth0.createUserGoogle);
+router.get("/login-google", loginGoogleRouteAuth0.loginGoogle);
 
 module.exports = router;
 

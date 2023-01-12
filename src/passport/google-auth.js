@@ -34,6 +34,7 @@ passport.use("sign-up-google",new GoogleStrategy(
           newUser._id = profile.id
           newUser.email = profile.emails[0].value
           newUser.username = profile.displayName
+          newUser.google = true
           newUser.password = ""
           newUser.confirm = true
          await newUser.save() //guardamos en la base de datos

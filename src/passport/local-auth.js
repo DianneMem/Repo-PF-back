@@ -58,7 +58,7 @@ exports.register = async (req, res) => {
       html: `
       <p> Hi! ${username}, confirm acount in FlyBooks </p>
       <p> Confirm your account in the link :
-      <a href="http://localhost:3001/local/confirm/${token}"> Confirm Acount </a></p>
+      <a href="https://flybooks.up.railway.app/local/confirm/${token}"> Confirm Acount </a></p>
       <p> If you don't create the account, ignore</p>`,
     });
   };
@@ -80,7 +80,7 @@ exports.confirm = async (req, res) => {
   user.token = null;
   user.confirm = true;
   await user.save();
-  res.redirect("http://localhost:3000/login");
+  res.redirect("https://flybooks.vercel.app/login");
 };
 
 exports.recoverPassword = async (req, res) => {
@@ -125,7 +125,7 @@ exports.recoverPassword = async (req, res) => {
         <p> Hi! ${username}, Reset your password on FlyBooks</p>
         <p> this is your new password " ${password} "</p>
         <p> click on the link to log in:
-        <a href="http://localhost:3000/login"> FlyBooks</a></p>
+        <a href="https://flybooks.vercel.app/login"> FlyBooks</a></p>
         <p> If you did not request the change ignore the message </p>`,
     });
   };
