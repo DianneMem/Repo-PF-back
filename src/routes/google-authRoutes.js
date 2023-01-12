@@ -17,7 +17,7 @@ loginGoogleRouter.get("/signup",passport.authenticate("sign-up-google", {scope: 
         expiresIn: 60 * 60 * 24 // equivalente a 24 horas
       })
       console.log("token 1:",token) 
-       res.cookie("jwt",token).redirect("https://develop--kaleidoscopic-kulfi-1f90f9.netlify.app//login")
+       res.cookie("jwt",token).redirect("https://develop--kaleidoscopic-kulfi-1f90f9.netlify.app/login")
     } else {
       res.redirect("https://develop--kaleidoscopic-kulfi-1f90f9.netlify.app/login")
     }
