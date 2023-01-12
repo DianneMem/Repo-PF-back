@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const session = require('cookie-session');
 const cookieParser = require("cookie-parser")
-const csrf = require("csurf")
+// const csrf = require("csurf")
 
 const passport = require("passport");
 const bodyParser = require("body-parser");
@@ -39,16 +39,16 @@ const server = express();
 server.use(cors({ origin: "https://flybooks.vercel.app" }));
 server.use(morgan("dev"));
 server.use(bodyParser.json());
-// server.use(cookieParser("mysecretsession"))
-// server.use(session({
-//   secret: 'mysecretsession',
-//   resave: true,
-//   saveUninitialized: true
-// }))
-server.use(cookieParser())
-server.use(csrf({
-  cookie: true
+server.use(cookieParser("mysecretsession"))
+server.use(session({
+  secret: 'mysecretsession',
+  resave: true,
+  saveUninitialized: true
 }))
+// server.use(cookieParser())
+// server.use(csrf({
+//   cookie: true
+// }))
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(cors())
