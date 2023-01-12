@@ -36,7 +36,7 @@ require("./passport/google-auth")
 
 const server = express();
 // server.use(cors({ origin: "http://localhost:3000" }));
-server.use(cors({ origin: "https://develop--kaleidoscopic-kulfi-1f90f9.netlify.app/" }));
+server.use(cors({ origin: "https://flybooks.vercel.app/" }));
 server.use(morgan("dev"));
 server.use(bodyParser.json());
 server.use(cookieParser("mysecretsession"))
@@ -46,9 +46,7 @@ server.use(session({
   saveUninitialized: true
 }))
 // server.use(cookieParser())
-server.use(csrf({
-  cookie: true
-}))
+
 server.use(passport.initialize());
 // server.use(passport.session());
 server.use(cors())

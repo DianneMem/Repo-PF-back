@@ -1,22 +1,35 @@
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 
-exports.createUserGoogle = async (req,res) => {
-  const { email, name, email_verified  } = req.body
-  let exist =  await  User.find({email: email})
+exports.loginGoogle = async (req,res) => {
+
   try {
-    if(!exist.length){
-      let newUser = new User();
-      newUser.email = email
-      newUser.username = name
-      newUser.password = ""
-      newUser.confirm = email_verified
-     await newUser.save() 
-     res.status(200).send(newUser);
-    } else {
-     res.status(400).send("user exist");
-    }
+    const user = await User.find({google:true})
+    const num = user.length -1;
+    const userfind = user[num];
+
+    const token = jwt.sign(
+      {
+        id: userfind.id,
+        username: userfind.username,
+        role: userfind.role,
+        email: userfind.email,
+      },
+      "top_secret",
+      {
+        expiresIn: 60 * 60 * 24,
+      }
+    );
+    res
+      .cookie("jwt", token, {
+        expires: new Date(Date.now() + 5000),
+        httpOnly: true,
+      })
+      .send(token);
+
   } catch (error) {
-    res.status(400).send(error.message)
+    console.log(error)
   }
+  
 }
