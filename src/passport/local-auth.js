@@ -8,6 +8,7 @@ const config = require("../configuration/config");
 exports.register = async (req, res) => {
   const { username, password, email } = req.body;
   //validation
+  res.header("Access-Control-Allow-Origin", "*");
   await check("username").notEmpty().withMessage("Is required").run(req);
   await check("email").isEmail().withMessage("example@example.com").run(req);
   await check("password")
@@ -72,7 +73,7 @@ exports.register = async (req, res) => {
 
 exports.confirm = async (req, res) => {
   const { token } = req.params;
-
+  res.header("Access-Control-Allow-Origin", "*");
   const user = await User.findOne({ token });
   if (!user) {
     res.send("Invalid Token");
@@ -84,6 +85,7 @@ exports.confirm = async (req, res) => {
 };
 
 exports.recoverPassword = async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   await check("email").isEmail().withMessage("example@example.com").run(req);
   let result = validationResult(req);
   //verification length
@@ -139,6 +141,7 @@ exports.recoverPassword = async (req, res) => {
 };
 
 exports.loginLocal = async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   const { username, password } = req.body;
 
   const user = await User.findOne({ username: username });
