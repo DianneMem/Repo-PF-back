@@ -43,16 +43,20 @@ exports.register = async (req, res) => {
 
   const emailRegister = async (data) => {
     const transport = nodemailer.createTransport({
-      host: config.E_HOST,
-      port: config.E_PORT,
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: config.E_USER,
         pass: config.E_PASSWORD,
       },
+      tls: {
+        rejectUnauthorized: false
+      },
     });
     const { username, email, token } = data;
     await transport.sendMail({
-      from: "books.com",
+      from: "FlyBooks",
       to: email,
       subject: "Confirm acount",
       text: "Confirm acount",
@@ -109,17 +113,21 @@ exports.recoverPassword = async (req, res) => {
   //send email
   const emailRecover = async (data) => {
     const transport = nodemailer.createTransport({
-      host: config.E_HOST,
-      port: config.E_PORT,
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: config.E_USER,
         pass: config.E_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false
       },
     });
 
     const { username, email, password } = data;
     await transport.sendMail({
-      from: "books.com",
+      from: "Flybooks",
       to: email,
       subject: "Reset your password on FlyBooks",
       text: "Reset your password on FlyBooks",
